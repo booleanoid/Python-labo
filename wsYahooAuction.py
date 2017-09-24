@@ -22,7 +22,7 @@ def getItemList(url):
         for i in item_list:
             h3 = i.find("h3")
             if h3:
-                print('id-%d' % id_num)
+                print('id:%d' % id_num)
                 item_name = h3.a.string
 
                 exhibitor = i.find("div", class_="sinfwrp").find_all("a")[1].string
