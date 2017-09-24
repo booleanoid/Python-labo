@@ -4,6 +4,7 @@
 from urllib.request import urlopen
 from urllib.error import HTTPError
 from bs4 import BeautifulSoup
+from pprint import pprint
 
 
 def getItemList(url):
@@ -14,25 +15,31 @@ def getItemList(url):
         return None
     try:
         bsObj = BeautifulSoup(html.read(), 'html5lib')
-
-        list = bsObj.find("div", id="list01").table
-        item_list = list.find_all("tr")
+        listEml = bsObj.find("div", id="list01").table
+        item_list = []
 
         id_num = 1
-        for i in item_list:
+        for i in listEml.find_all("tr"):
             h3 = i.find("h3")
             if h3:
                 print('id:%d' % id_num)
                 item_name = h3.a.string
 
                 exhibitor = i.find("div", class_="sinfwrp").find_all("a")[1].string
-                price_now = i.find("td", class_="pr1").text
+                price_now = i.find("td", class_="pr1")
+                price_now.ul.decompose()
+                price_now = price_now.get_text()
+                price_prompt_decision = i.find("td", class_="pr2").text
+                item_list.append([id_num, item_name, exhibitor, price_now, price_prompt_decision])
+
 
                 print('item_name:%s' % item_name)
                 print('exhibitor:%s' % exhibitor)
                 print('price now:%s' % price_now)
+                print('price promit decision:%s' % price_prompt_decision)
                 print("--------------------------------------------------")
                 id_num += 1
+        pprint(item_list)
 
 
     except AttributeError as e:
