@@ -8,21 +8,26 @@ from pprint import pprint
 import time
 
 
-def getItemList(url):
-    # try:
-    #
-    # except HTTPError as e:
-    #     print(e)
-    #     return None
+
+def return_bs_obj(url):
+    try:
+        html = urlopen(url)
+        bs_obj = BeautifulSoup(html.read(), 'html5lib')
+    except HTTPError as e:
+        print(e)
+        return None
+    return bs_obj
+
+def get_item_list(url):
     try:
         item_list = []
         id_num = 1
         page_num = 1
         while True :
-            html = urlopen(url)
-            bsObj = BeautifulSoup(html.read(), 'html5lib')
+            bsObj = return_bs_obj(url)
             listEml = bsObj.find("div", id="list01").table
-            next_link = bsObj.find("div", id="ASsp1").find("p", class_="next").a.get("href") if bsObj.find("div", id="ASsp1").find("p", class_="next").a else None
+            next_link_eml = bsObj.find("div", id="ASsp1").find("p", class_="next")
+            next_link = next_link_eml.a.get("href") if next_link_eml.a else None
 
             # print("page num is %d" % page_num)
             # print("next_link:%s" % next_link)
@@ -67,5 +72,5 @@ def getCsv(url):
     for b in bs:
         print(b)
 
-getItemList("https://auctions.yahoo.co.jp/category/list/2084236857/?tab_ex=commerce&auccat=2084236857")
+get_item_list("https://auctions.yahoo.co.jp/category/list/2084236857/?tab_ex=commerce&auccat=2084236857")
 
