@@ -34,7 +34,7 @@ def getItemList(url):
                     exhibitor = i.find("div", class_="sinfwrp").find_all("a")[1].string
                     price_now = i.find("td", class_="pr1")
                     price_now.ul.decompose()
-                    price_now = price_now.get_text()
+                    price_now = price_now.get_text().replace(" ", "").replace("\n", "")
                     price_prompt_decision = i.find("td", class_="pr2").text
                     item_list.append([id_num, item_name, exhibitor, price_now, price_prompt_decision])
 
