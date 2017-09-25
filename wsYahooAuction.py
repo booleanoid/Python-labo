@@ -9,7 +9,7 @@ import time
 
 
 
-def return_bs_obj(url):
+def get_bs_obj(url):
     try:
         html = urlopen(url)
         bs_obj = BeautifulSoup(html.read(), 'html5lib')
@@ -24,13 +24,10 @@ def get_item_list(url):
         id_num = 1
         page_num = 1
         while True :
-            bsObj = return_bs_obj(url)
+            bsObj = get_bs_obj(url)
             listEml = bsObj.find("div", id="list01").table
-            next_link_eml = bsObj.find("div", id="ASsp1").find("p", class_="next")
-            next_link = next_link_eml.a.get("href") if next_link_eml.a else None
-
-            # print("page num is %d" % page_num)
-            # print("next_link:%s" % next_link)
+            next_link_elm = bsObj.find("div", id="ASsp1").find("p", class_="next")
+            next_link = next_link_elm.a.get("href") if next_link_elm.a else None
 
             for i in listEml.find_all("tr"):
                 h3 = i.find("h3")
@@ -43,12 +40,6 @@ def get_item_list(url):
                     price_prompt_decision = i.find("td", class_="pr2").text
                     item_list.append([id_num, item_name, exhibitor, price_now, price_prompt_decision])
 
-                    #print('id:%d' % id_num)
-                    # print('item_name:%s' % item_name)
-                    # print('exhibitor:%s' % exhibitor)
-                    # print('price now:%s' % price_now)
-                    # print('price promit decision:%s' % price_prompt_decision)
-                    # print("--------------------------------------------------")
                     id_num += 1
 
             if next_link is None:
@@ -65,7 +56,7 @@ def get_item_list(url):
     return item_list
 
 
-def getCsv(url):
+def get_csv(url):
     item_list_results = []
 
     bs = getItemList(url)
