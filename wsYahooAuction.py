@@ -5,6 +5,8 @@ from urllib.request import urlopen
 from urllib.error import HTTPError
 from bs4 import BeautifulSoup
 from pprint import pprint
+from datetime import datetime as dt
+import pandas as pd
 import time
 
 
@@ -33,12 +35,20 @@ def get_item_list(url):
                 h3 = i.find("h3")
                 if h3:
                     item_name = h3.a.string
+                    item_url = h3.a.get('href')
                     exhibitor = i.find("div", class_="sinfwrp").find_all("a")[1].string
                     price_now = i.find("td", class_="pr1")
                     price_now.ul.decompose()
                     price_now = price_now.get_text().replace(" ", "").replace("\n", "")
                     price_prompt_decision = i.find("td", class_="pr2").text
-                    item_list.append([id_num, item_name, exhibitor, price_now, price_prompt_decision])
+                    remaining_time = i.find("td", class_="ti").text
+                    # print(item_name)
+                    # print(item_url)
+                    item_url_split = item_url.split('/')
+                    id = item_url_split[5]
+
+                    item_list.append([id, id_num, item_name, exhibitor, price_now, price_prompt_decision, remaining_time])
+
 
                     id_num += 1
 
@@ -56,12 +66,13 @@ def get_item_list(url):
     return item_list
 
 
-def get_csv(url):
-    item_list_results = []
+def write_csv(item_name, item_list):
+    tdatetime = dt.now()
 
-    bs = getItemList(url)
-    for b in bs:
-        print(b)
+    # fetched_dataframes
+    df = pd.DataFrame(item_list)
+    df.to_csv('Yahoo_auction_list_%s_%d-%d-%d.csv' % (item_name, tdatetime.year, tdatetime.month, tdatetime.day))
+    print('%s Success!!' % item_name)
 
-get_item_list("https://auctions.yahoo.co.jp/category/list/2084236857/?tab_ex=commerce&auccat=2084236857")
-
+item_list = get_item_list("https://auctions.yahoo.co.jp/category/list/2084236857/?tab_ex=commerce&auccat=2084236857")
+write_csv('335', item_list)
