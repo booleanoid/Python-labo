@@ -1,6 +1,5 @@
-from pprint import pprint
 
-def get_prime_number(num):
+def is_prime_number(num):
     flg_non_prime_num = False
     for i in range(2, num-1):
         if num % i == 0:
@@ -11,8 +10,8 @@ def get_prime_number(num):
 
 prime_numbers = []
 
-for i in range(2, 100):
-    if get_prime_number(i) == True:
+for i in range(2, 200):
+    if is_prime_number(i) == True:
         prime_numbers.append(i)
 
-pprint(prime_numbers)
+print(prime_numbers)
