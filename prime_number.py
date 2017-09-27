@@ -1,16 +1,13 @@
 from pprint import pprint
 
 def get_prime_number(num):
-    non_prime_num_flg = None
+    flg_non_prime_num = False
     for i in range(2, num-1):
         if num % i == 0:
-            non_prime_num_flg = True
+            flg_non_prime_num = True
             break
 
-    if non_prime_num_flg is None:
-        return True
-    else:
-        return False
+    return not(flg_non_prime_num)
 
 prime_numbers = []
 
