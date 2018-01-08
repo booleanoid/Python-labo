@@ -11,3 +11,16 @@ print(list_b[3])
 
 print(list_c[3])
 # 4
+
+
+fruits = ["strawberry", "orange", "banana", "apple", "grape"]
+
+print(sorted(fruits))
+# ['apple', 'banana', 'grape', 'orange', 'strawberry']
+
+print(fruits)
+# ['strawberry', 'orange', 'banana', 'apple', 'grape']
+
+fruits.sort()
+print(fruits)
+# ['apple', 'banana', 'grape', 'orange', 'strawberry']
