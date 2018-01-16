@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from.models import Add_Word
 
 # Create your views here.
 def index(request):
-    return HttpResponse('Hello world!!!')
-
+    data_list = Add_Word.objects.all()
+    return HttpResponse(data_list)
