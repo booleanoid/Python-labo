@@ -3,9 +3,8 @@ from django.shortcuts import render
 #from django.template import loader
 from.models import Add_Word
 
-def index(request):
+def myapp_index(request):
     data_list = Add_Word.objects.all()
-    #template = loader.get_template('myapp/index.html')
     context = {
         'lists': data_list
     }
