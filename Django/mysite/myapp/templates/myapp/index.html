@@ -1,16 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8" />
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
-</head>
-<body>
-
+{% extends 'myapp/base.html' %}
+{% block body %}
 {% for list in lists %}
 <p>{{list.word_text}}</p>
 {% endfor %}
-
-</body>
-</html>
-
+{% endblock %}
