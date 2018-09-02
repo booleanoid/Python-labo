@@ -9,11 +9,12 @@ class ArticleSpider(CrawlSpider):
     allowed_domains = ['en.wikipedia.org']
     start_urls = ['http://en.wikipedia.org/wiki/Main-Page']
 
-    rules = (
-        Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
-    )
+    # rules = (
+    #     Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
+    # )
+    rules = [Rule(LinkExtractor(allow = ('(/wiki/)((?!:).)*$'), ), callback = "parse_item", follow=True)]
 
-    def parse(self, response):
+    def parse_item(self, response):
         # i = {}
         #i['domain_id'] = response.xpath('//input[@id="sid"]/@value').extract()
         #i['name'] = response.xpath('//div[@id="name"]').extract()
