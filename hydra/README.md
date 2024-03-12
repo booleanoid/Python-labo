@@ -3,7 +3,7 @@
 ## Overview
 This repository provides information on how to use hydra.
 
- ## Prerequisites
+## Prerequisites
 * Python 3.12.2
 * Hydra 1.3.2
  
@@ -12,7 +12,7 @@ This repository provides information on how to use hydra.
 pip install hydra-core
 ```
   
-# Usage 
+## Usage 
 ```bash
 git clone https://github.com/booleanoid/Python-labo.git
 cd hydra
