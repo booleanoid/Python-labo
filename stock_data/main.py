@@ -1,5 +1,6 @@
 import pandas_datareader.data as pdr
 import datetime as dt
+from matplotlib import pyplot as plt
 import mplfinance as mpf
 
 
@@ -25,6 +26,10 @@ apd = [
   mpf.make_addplot(cdf["ma75"], color="red")
   ]
 
-mpf.plot(cdf, type="candle", figratio=(16,9), addplot=apd)
-# mpf.plot(cdf, type="candle", figratio=(16,9), volume=True, mav=(5, 25, 75), style="nightclouds")
+# mpf.plot(cdf, type="candle", figratio=(16,9), addplot=apd)
 
+# 描写情報を追加
+fig, axes = mpf.plot(cdf, type="candle", figratio=(16, 9), addplot=apd, returnfig=True, volume=True)
+axes[0].legend(["MA5", "MA25", "MA75"])
+# fig.show()
+plt.show()
